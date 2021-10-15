@@ -10,12 +10,13 @@ int targetDeviceMemSize;
 byte targetDeviceMemToRead;
 //DESK PCB PIN ORDER
 //GND EN DIR 5V
+//    
 
 //SENSOR PIN ORDER
 //VCC TRIG ECHO GND
 int debugMode = 1;
-int dirPin = 7;
-int enablePin = 8;
+int dirPin = 6;
+int enablePin = 7;
 int trigPin = 12;
 int echoPin = 11;
 
@@ -24,6 +25,12 @@ void setup() {
   pinMode(enablePin, OUTPUT);
   pinMode(trigPin, OUTPUT);
   pinMode(echoPin, INPUT);
+
+  // Let's make sure we're not doing anything with these
+  digitalWrite(dirPin, LOW);
+  digitalWrite(enablePin, LOW);
+  digitalWrite(trigPin, LOW);
+  
   Serial.begin(9600);
   _clearReceivedCommand();
 }
@@ -56,7 +63,7 @@ void handleReceivedCommand() {
   }
 
   switch(receivedBytes[0]) {
-    case 'n':
+    /*case 'n':
       turnOnDeskMove();
       Serial.println("OK");
       break;
@@ -73,7 +80,7 @@ void handleReceivedCommand() {
       //moveDeskDown();
       setDirectionToDown();
       Serial.println("OK");
-      break;
+      break;*/
     case 'p':
       readPosition();
       Serial.println("OK");
